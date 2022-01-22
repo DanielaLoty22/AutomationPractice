@@ -1,10 +1,10 @@
 
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
 
 
 public class RegisterTest {
@@ -33,15 +33,35 @@ public class RegisterTest {
         driver.findElement(By.xpath("//input[@value='FeMale']")).click();
         //Select Hobbies
         driver.findElement(By.id("checkbox1")).click();
-        //Select Language
-        driver.findElement(By.xpath("//div[@id='msdd']")).click();
-        driver. findElement(By.xpath("//div[@id='msdd']/../div[2]/ul/li/a[contains(text(),'English')]")).click();
+
         //Select Skills
         Select skills=new Select(driver.findElement (By.id("Skills")));
         skills.selectByVisibleText("SQL");
+
+
+        //Select Languages
+        WebElement languageElement = driver.findElement(By.id("msdd"));
+        languageElement.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)");
+        List<WebElement> languageOptions= driver.findElements(By.cssSelector(".ui-autocomplete.ui-front>li>a"));
+        for (int index=0;index< languageOptions.size();index++){
+            if (languageOptions.get(index).getText().equals("English")
+                || languageOptions.get(index).getText().equals("Arabic"))
+            {
+                languageOptions.get(index).click();
+            }
+        }
+
+        driver.findElement(By.xpath("//input[@type='tel']")).click();
         //Select Country
-        driver.findElement(By.xpath("//*[@id=\"basicBootstrapForm\"]/div[10]/div/span/span[1]/span")).click();
-        driver.findElement(By.xpath("//*[@id=\"select2-country-results\"]/li[7]")).click();
+        WebElement countryElement=driver.findElement(By.cssSelector("span[role='combobox']"));
+        countryElement.click();
+        WebElement countryInputElement= driver.findElement(By.className("select2-search__field"));
+        countryInputElement.sendKeys("Australia");
+        countryInputElement.sendKeys(Keys.ENTER);
+
+
         //Select Year
         Select year=new Select (driver.findElement (By. id ("yearbox")));
         year.selectByVisibleText("2013");
@@ -58,18 +78,9 @@ public class RegisterTest {
         //enter Submit Button
         driver.findElement(By.id("submitbtn")).submit();
 
-
-
-
-
-        }
-
-
-
-
-
-
-
+        WebElement uploadFileElement=driver.findElement(By.cssSelector("div>input[id=\"imagesrc\"]"));
+        uploadFileElement.sendKeys("C:\\Users\\lotys\\OneDrive\\Desktop\\Azimut\\Logo psd1111111111111111.png");
 
     }
+}
 
