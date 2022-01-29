@@ -1,4 +1,5 @@
 
+import Base.ShareData;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,30 +8,32 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 
-public class RegisterTest {
-    public WebDriver driver;
+public class RegisterTest extends ShareData {
 
 
     @Test
     public void register() {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Automation\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get("http://demo.automationtesting.in/Register.html");
-        driver.manage().window().maximize();
+
 
         //Entering First Name
         driver.findElement(By.xpath("//input[@placeholder='First Name']")).sendKeys("Daniela");
+
         //Entering Last Name
         driver.findElement(By.xpath("//input[@placeholder='Last Name']")).sendKeys("Maciucian");
+
         //Enter Adress
         driver.findElement(By.xpath("//textarea[@ng-model='Adress']")).sendKeys("Oasului bLoc K1");
+
         //Enter Email
         driver.findElement(By.xpath("//input[@type='email']")).sendKeys("danieladrm17@yahoo.com");
+
         //Enter Phone
         driver.findElement(By.xpath("//input[@type='tel']")).sendKeys("0747333624");
+
         //Select Gender
         driver.findElement(By.xpath("//input[@value='FeMale']")).click();
+
         //Select Hobbies
         driver.findElement(By.id("checkbox1")).click();
 
@@ -52,8 +55,8 @@ public class RegisterTest {
                 languageOptions.get(index).click();
             }
         }
-
         driver.findElement(By.xpath("//input[@type='tel']")).click();
+
         //Select Country
         WebElement countryElement=driver.findElement(By.cssSelector("span[role='combobox']"));
         countryElement.click();
@@ -65,16 +68,21 @@ public class RegisterTest {
         //Select Year
         Select year=new Select (driver.findElement (By. id ("yearbox")));
         year.selectByVisibleText("2013");
+
         //Select Month
         Select month=new Select(driver.findElement (By.xpath("//select[@placeholder='Month']")));
         month.selectByVisibleText("May");
+
         //Select day
         Select day=new Select(driver.findElement (By.id( "daybox")));
         day.selectByVisibleText("15");
+
         //Enter Password
         driver.findElement(By.id("firstpassword")).sendKeys("123456");
+
         //Enter confirm password
         driver.findElement(By.id("secondpassword")).sendKeys("123456");
+
         //enter Submit Button
         driver.findElement(By.id("submitbtn")).submit();
 
