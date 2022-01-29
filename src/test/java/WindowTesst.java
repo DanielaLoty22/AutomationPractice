@@ -50,9 +50,9 @@ public class WindowTesst extends ShareData {
 
 
 
-        windowOptions.get(1).click();
-        WebElement newwindowandTab= driver.findElement(By.cssSelector("#Multiple>button"));
-        newwindowandTab.click();
+        windowOptions.get(2).click();
+        WebElement newWindowandTab= driver.findElement(By.cssSelector("#Multiple>button"));
+        newWindowandTab.click();
 
         System.out.println("Titlul paginii: "+ driver.getTitle());
         List<String> multipletabs = new ArrayList<>(driver.getWindowHandles());
@@ -61,6 +61,10 @@ public class WindowTesst extends ShareData {
 
         driver.close();
         driver.switchTo().window(multipletabs .get(1));
+        System.out.println("Titlul paginii: "+ driver.getTitle());
+
+        driver.close();
+        driver.switchTo().window(multipletabs .get(0));
         System.out.println("Titlul paginii: "+ driver.getTitle());
 
 
