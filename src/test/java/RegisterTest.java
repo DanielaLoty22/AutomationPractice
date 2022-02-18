@@ -1,92 +1,117 @@
-
 import Base.ShareData;
+import Help.ElementMethods;
 import org.junit.Test;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
 
 public class RegisterTest extends ShareData {
+    public ElementMethods elementMethods;
 
 
     @Test
     public void register() {
 
 
+        elementMethods = new ElementMethods(driver);
 
-        //Entering First Name
-        driver.findElement(By.xpath("//input[@placeholder='First Name']")).sendKeys("Daniela");
+        WebElement skipSignInElement = driver.findElement(By.id("btn2"));
+        elementMethods.clickElement(skipSignInElement);
 
-        //Entering Last Name
-        driver.findElement(By.xpath("//input[@placeholder='Last Name']")).sendKeys("Maciucian");
+        WebElement firstNameElement = driver.findElement(By.cssSelector("input[placeholder='First Name']"));
+        elementMethods.clickElement(firstNameElement);
+        String firstNameValue = "Daniela";
+        firstNameElement.sendKeys(firstNameValue);
 
-        //Enter Adress
-        driver.findElement(By.xpath("//textarea[@ng-model='Adress']")).sendKeys("Oasului bLoc K1");
+        WebElement lastNameElement = driver.findElement(By.cssSelector("input[placeholder='Last Name']"));
+        elementMethods.clickElement(lastNameElement);
+        String lastNameValue = "Maciucian";
+        lastNameElement.sendKeys(lastNameValue);
 
-        //Enter Email
-        driver.findElement(By.xpath("//input[@type='email']")).sendKeys("danieladrm17@yahoo.com");
+        WebElement addressElement = driver.findElement(By.cssSelector("textarea[rows='3']"));
+        elementMethods.clickElement(addressElement);
+        String addressValue = "Strada Oasului, nr. 86/90,  ap. 3, jud. Cluj, Romania";
+        addressElement.sendKeys(addressValue);
 
-        //Enter Phone
-        driver.findElement(By.xpath("//input[@type='tel']")).sendKeys("0747333624");
+        WebElement emailElement = driver.findElement(By.cssSelector("input[type='email']"));
+        elementMethods.clickElement(emailElement);
+        String emailValue = "danieladrm17@yahoo.com";
+        emailElement.sendKeys(emailValue);
 
-        //Select Gender
-        driver.findElement(By.xpath("//input[@value='FeMale']")).click();
+        WebElement phoneNumberElement = driver.findElement(By.cssSelector("input[type='tel']"));
+        elementMethods.clickElement(phoneNumberElement);
+        String phoneNumberValue = "0751592751";
+        phoneNumberElement.sendKeys(phoneNumberValue);
 
-        //Select Hobbies
-        driver.findElement(By.id("checkbox1")).click();
+        WebElement genderElement = driver.findElement(By.cssSelector("input[value='FeMale']"));
+        elementMethods.clickElement(genderElement);
+
+
+        WebElement hobbiesElement =  driver.findElement(By.cssSelector("input[value='Movies']"));
+        elementMethods.clickElement(hobbiesElement);
 
         //Select Skills
-        Select skills=new Select(driver.findElement (By.id("Skills")));
-        skills.selectByVisibleText("SQL");
+        WebElement skills=driver.findElement (By.id("Skills"));
+        elementMethods.selectElementByText(skills,"SQL");
 
 
         //Select Languages
         WebElement languageElement = driver.findElement(By.id("msdd"));
-        languageElement.click();
+        elementMethods.clickElement(languageElement);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,400)");
         List<WebElement> languageOptions= driver.findElements(By.cssSelector(".ui-autocomplete.ui-front>li>a"));
-        for (int index=0;index< languageOptions.size();index++){
-            if (languageOptions.get(index).getText().equals("English")
-                || languageOptions.get(index).getText().equals("Arabic"))
-            {
-                languageOptions.get(index).click();
+        for (WebElement languageOption : languageOptions) {
+            if (languageOption.getText().equals("English")
+                    || languageOption.getText().equals("Arabic")) {
+                languageOption.click();
             }
         }
         driver.findElement(By.xpath("//input[@type='tel']")).click();
 
         //Select Country
         WebElement countryElement=driver.findElement(By.cssSelector("span[role='combobox']"));
-        countryElement.click();
+        elementMethods.clickElement(countryElement);
         WebElement countryInputElement= driver.findElement(By.className("select2-search__field"));
         countryInputElement.sendKeys("Australia");
         countryInputElement.sendKeys(Keys.ENTER);
 
 
         //Select Year
-        Select year=new Select (driver.findElement (By. id ("yearbox")));
-        year.selectByVisibleText("2013");
+        WebElement yearElement =driver.findElement (By. id ("yearbox"));
+        elementMethods.selectElementByValue(yearElement,"2013");
 
         //Select Month
-        Select month=new Select(driver.findElement (By.xpath("//select[@placeholder='Month']")));
-        month.selectByVisibleText("May");
+        WebElement monthElement =driver.findElement (By.xpath("//select[@placeholder='Month']"));
+        elementMethods.selectElementByText(  monthElement, "May");
 
         //Select day
-        Select day=new Select(driver.findElement (By.id( "daybox")));
-        day.selectByVisibleText("15");
+        WebElement dayElement =driver.findElement (By.id( "daybox"));
+        elementMethods.selectElementByValue(dayElement,"15");
 
         //Enter Password
-        driver.findElement(By.id("firstpassword")).sendKeys("123456");
+        WebElement passwordElement = driver.findElement(By.id("firstpassword"));
+        elementMethods.clickElement(passwordElement);
+        String passwordvalue= "Hachiko";
+        passwordElement.sendKeys(passwordvalue);
 
         //Enter confirm password
-        driver.findElement(By.id("secondpassword")).sendKeys("123456");
+        WebElement confirmpasswordElement = driver.findElement(By.id("secondpassword"));
+        elementMethods.clickElement(confirmpasswordElement);
+        String confirmPasswordValue="Hachiko";
+        confirmpasswordElement.sendKeys(confirmPasswordValue);
+
 
         //enter Submit Button
-        driver.findElement(By.id("submitbtn")).submit();
+        WebElement submitElement= driver.findElement(By.id("submitbtn"));
+        elementMethods.clickElement(submitElement);
 
-        WebElement uploadFileElement=driver.findElement(By.cssSelector("div>input[id=\"imagesrc\"]"));
+
+        WebElement uploadFileElement=driver.findElement(By.cssSelector("div>input[id='imagesrc']"));
         uploadFileElement.sendKeys("C:\\Users\\lotys\\OneDrive\\Desktop\\Azimut\\Logo psd1111111111111111.png");
 
     }

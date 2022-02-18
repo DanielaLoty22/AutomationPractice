@@ -1,54 +1,60 @@
 package Test;
 
 import Base.ShareData;
+import Help.AlertMethods;
+import Help.ElementMethods;
+import Help.PageMethods;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
 public class AlertTest extends ShareData {
 
 
+    public ElementMethods elementMethods;
+    public PageMethods pageMethods;
+    public AlertMethods alertMethods;
+
     @Test
     public void testautomat(){
 
+        elementMethods= new ElementMethods(driver);
+        pageMethods = new PageMethods(driver);
+        alertMethods= new AlertMethods(driver);
+
         WebElement skipsigninElement= driver.findElement(By.id("btn2"));
-        skipsigninElement.click();
+        elementMethods.clickElement(skipsigninElement);
 
         WebElement switchtoElement= driver.findElement(By.xpath("//a[text()='SwitchTo']"));
-        Actions Action = new Actions(driver);
-        Action.moveToElement(switchtoElement).perform();
+        elementMethods.moveToElement(switchtoElement);
 
         WebElement alertsElement = driver.findElement (By.xpath("//a[text()='Alerts']"));
-        alertsElement.click();
+        elementMethods.clickElement(alertsElement);
 
 
-        driver.navigate().to("http://demo.automationtesting.in/Alerts.html");
+        pageMethods.NavigateToURL("http://demo.automationtesting.in/Alerts.html");
+
 
         List<WebElement> alertOptions= driver.findElements(By.cssSelector(".nav-tabs>li>a"));
         alertOptions.get(0).click();
         WebElement alertOk = driver.findElement(By.cssSelector("#OKTab>button"));
-        alertOk.click();
+        elementMethods.clickElement(alertOk);
+        alertMethods.acceptAlert();
 
-        Alert ok= driver.switchTo().alert();
-        ok.accept();
+
 
         alertOptions.get(1).click();
         WebElement alertOkCancel = driver.findElement(By.cssSelector("#CancelTab>button"));
         alertOkCancel.click();
-        Alert OkCancel = driver.switchTo().alert();
-        OkCancel.dismiss();
+        elementMethods.clickElement(alertOkCancel);
+        alertMethods.cancelAlert();
 
         alertOptions.get(2).click();
         WebElement alertTextbox = driver.findElement(By.cssSelector("#Textbox>button"));
-        alertTextbox.click();
-        Alert Textbox = driver.switchTo().alert();
-        Textbox.sendKeys("cand e pauza?");
-        Textbox.accept();
-
+        elementMethods.clickElement(alertTextbox);
+        alertMethods.acceptFillAlert("Test");
 
 
 
