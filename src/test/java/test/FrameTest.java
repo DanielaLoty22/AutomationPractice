@@ -1,3 +1,5 @@
+package test;
+
 import base.Hooks;
 import pages.FramePage;
 import pages.IndexPage;

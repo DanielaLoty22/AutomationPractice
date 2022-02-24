@@ -1,3 +1,5 @@
+package test;
+
 import base.Hooks;
 import pages.IndexPage;
 import pages.RegisterPage;

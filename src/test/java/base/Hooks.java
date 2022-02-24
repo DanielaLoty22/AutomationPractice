@@ -1,6 +1,6 @@
 package base;
 
-import propertiesUtility.propertiesObject;
+import propertiesUtility.PropertiesObject;
 import org.junit.After;
 import org.junit.Before;
 
@@ -18,7 +18,7 @@ public class Hooks extends ShareData {
             InitializeDriver();
             //incarc pentru fiecare test fisierul de resource corespunzator
             String className = this.getClass().getSimpleName();
-            propertiesObject testData = new propertiesObject("testResources/"+className+"Resource");
+            PropertiesObject testData = new PropertiesObject("target/test-classes/testResources/" + className + "Resources.properties");
             inputData = testData.getAllKeyValues();
         }
 

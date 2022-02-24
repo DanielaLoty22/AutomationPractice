@@ -3,11 +3,11 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Properties;
 
-public class propertiesObject {
+public class PropertiesObject {
     public Properties properties;
     public FileInputStream file;
 
-    public propertiesObject(String path){
+    public PropertiesObject(String path){
         loadPropertiesFile(path);
     }
 
@@ -16,7 +16,7 @@ public class propertiesObject {
     public void loadPropertiesFile(String path) {
         properties = new Properties();
         try {
-            file = new FileInputStream("src/test/resources/testResources/" + path + ".properties");
+            file = new FileInputStream(path);
             properties.load(file);
         } catch (Exception exception) {
             System.out.println(exception);

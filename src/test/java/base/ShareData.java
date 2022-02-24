@@ -1,6 +1,6 @@
 package base;
 
-import propertiesUtility.propertiesObject;
+import propertiesUtility.PropertiesObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -12,7 +12,7 @@ public class ShareData {
     private WebDriver driver;
 
     public void InitializeDriver(){
-        propertiesObject driverResource = new propertiesObject("driverResource/DriverResource");
+        PropertiesObject driverResource = new PropertiesObject("target/test-classes/driverResource/DriverResource.properties");
         System.setProperty(driverResource.getValueByKey("browser"), driverResource.getValueByKey("browserPath"));
         driver = new ChromeDriver();
         driver.get(driverResource.getValueByKey("url"));
