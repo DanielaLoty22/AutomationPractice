@@ -1,7 +1,5 @@
-package Help;
-
+package help;
 import org.openqa.selenium.WebDriver;
-
 import java.util.ArrayList;
 import java.util.List;
 

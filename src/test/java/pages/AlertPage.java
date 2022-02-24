@@ -1,37 +1,28 @@
-package Pages;
+package pages;
 
-import Base.ShareData;
-import Help.AlertMethods;
-import Help.ElementMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class AlertPage extends ShareData {
-
-
-    public WebDriver driver;
-    public ElementMethods elementMethods;
-    public AlertMethods alertMethods;
+public class AlertPage extends BasePage {
 
     public AlertPage(WebDriver driver){
-        this.driver = driver;
-        elementMethods = new ElementMethods(driver);
-        alertMethods = new AlertMethods(driver);
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
+
+
     @FindBy(css = ".nav-tabs>li>a")
-    public List<WebElement> alertOptionsElement;
+    private List<WebElement> alertOptionsElement;
     @FindBy(css = "#OKTab>button")
-    public WebElement alertOkElement;
+    private WebElement alertOkElement;
     @FindBy(css = "#CancelTab>button")
-    public WebElement alertOkCancelElement;
+    private WebElement alertOkCancelElement;
     @FindBy(css = "#Textbox>button")
-    public WebElement alertTextBoxElement;
+    private WebElement alertTextBoxElement;
 
     public void alertOkProcess(){
         elementMethods.clickElement(alertOptionsElement.get(0));
@@ -45,10 +36,10 @@ public class AlertPage extends ShareData {
         alertMethods.cancelAlert();
     }
 
-    public void alertTextProcess(String value){
+    public void alertTextProcess(HashMap<String, String>inputData){
         elementMethods.clickElement(alertOptionsElement.get(2));
         elementMethods.clickElement(alertTextBoxElement);
-        alertMethods.acceptFillAlert(value);
+        alertMethods.acceptFillAlert(inputData.get("alertText"));
     }
 }
 

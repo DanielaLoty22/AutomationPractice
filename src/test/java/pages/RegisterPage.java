@@ -1,80 +1,63 @@
-package Pages;
-
-import Help.ElementMethods;
-import Help.PageMethods;
+package pages;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
+import java.util.HashMap;
 import java.util.List;
 
-public class RegisterPage {
-    public WebDriver driver;
-    public ElementMethods elementMethods;
-    public PageMethods pageMethods;
 
-    public RegisterPage(WebDriver driver){
-        this.driver = driver;
-        elementMethods = new ElementMethods(driver);
-        pageMethods = new PageMethods(driver);
-        PageFactory.initElements(driver, this);
+public class RegisterPage extends BasePage {
+
+    public RegisterPage(WebDriver driver) {
+        super(driver);
     }
 
     @FindBy(xpath = "//a[text()='SwitchTo']")
-    public WebElement switchToElement;
+    private WebElement switchToElement;
     @FindBy(xpath = "//a[text()='Alerts']")
-    public WebElement alertsElement;
+    private WebElement alertsElement;
     @FindBy(xpath = "//a[text()='Windows']")
-    public WebElement windowsElement;
+    private WebElement windowsElement;
     @FindBy(css = "input[placeholder='First Name']")
-    public WebElement firstNameElement;
+    private WebElement firstNameElement;
     @FindBy(css = "input[placeholder='Last Name']")
-    public WebElement lastNameElement;
+    private WebElement lastNameElement;
     @FindBy(css = "textarea[rows='3']")
-    public WebElement addressElement;
+    private WebElement addressElement;
     @FindBy(css = "input[type='email']")
-    public WebElement emailElement;
+    private WebElement emailElement;
     @FindBy(css = "input[type='tel']")
-    public WebElement phoneElement;
+    private WebElement phoneElement;
     @FindBy(css = "input[value='FeMale']")
-    public WebElement genderElement;
+    private WebElement genderElement;
     @FindBy(css = "input[value='Movies']")
-    public WebElement hobbyElement;
+    private WebElement hobbyElement;
     @FindBy(css = "div[id='msdd']")
-    public WebElement languagesElement;
+    private WebElement languagesElement;
     @FindBy(css = ".ui-autocomplete.ui-front>li>a")
-    public List<WebElement> languagesOptionsElement;
+    private List<WebElement> languagesOptionsElement;
     @FindBy(id = "Skills")
-    public WebElement skillsElement;
+    private WebElement skillsElement;
     @FindBy(css = "span[role='combobox']")
-    public WebElement countryElement;
+    private WebElement countryElement;
     @FindBy(className = "select2-search__field")
-    public WebElement countryInputElement;
+    private WebElement countryInputElement;
     @FindBy(id = "yearbox")
-    public WebElement yearElement;
-
+    private WebElement yearElement;
     @FindBy(xpath = "//select[@placeholder='Month']")
-    public WebElement monthElement;
-
+    private WebElement monthElement;
     @FindBy(id="daybox")
-    public WebElement dayElement;
-
-
-
+    private WebElement dayElement;
     @FindBy(css = "div>input[id='imagesrc']")
-    public WebElement uploadElement;
-
+    private WebElement uploadElement;
     @FindBy(id  = "firstpassword")
-    public WebElement passwordElement;
-
+    private WebElement passwordElement;
     @FindBy(id = "secondpassword")
-    public WebElement confirmPasswordElement;
-
+    private WebElement confirmPasswordElement;
     @FindBy(id="submitbtn")
-    public WebElement submitElement;
+    private WebElement submitElement;
 
     public void goToAlertPage(){
         elementMethods.moveToElement(switchToElement);
@@ -86,6 +69,8 @@ public class RegisterPage {
         elementMethods.moveToElement(switchToElement);
         elementMethods.clickElement(windowsElement);
         pageMethods.NavigateToURL("http://demo.automationtesting.in/Windows.html");
+
+
     }
 
     public void fillFirstName(String value){
@@ -119,7 +104,7 @@ public class RegisterPage {
     public void chooseLanguages(String value){
         elementMethods.clickElement(languagesElement);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)");
+        js.executeScript("window.scrollBy(0,300)");
         for (int index = 0;index < languagesOptionsElement.size();index++){
             if (languagesOptionsElement.get(index).getText().equals(value)){
                 languagesOptionsElement.get(index).click();
@@ -171,26 +156,26 @@ public class RegisterPage {
     }
 
 
-    public void registerValidProcess(String firstName,String lastName, String address, String email,
-                                     String phone, String language, String skill, String country,
-                                     String year, String month,String day, String file, String password, String confirmP ){
-        fillFirstName(firstName);
-        fillLastName(lastName);
-        fillAddress(address);
-        fillEmail(email);
-        fillPhone(phone);
+    public void registerValidProcess(HashMap<String,String> inputData) {
+
+        fillFirstName(inputData.get("firstName"));
+        fillLastName(inputData.get("lastName"));
+        fillAddress(inputData.get("address"));
+        fillEmail(inputData.get("email"));
+        fillPhone(inputData.get("phone"));
         clickGender();
         clickHobby();
-        chooseLanguages(language);
-        selectSkill(skill);
-        chooseCountry(country);
-        selectYear(year);
-        selectMonth(month);
-        selectDay(day);
-        uploadFile(file);
-        fillPassword(password);
-        fillConfirmPassword(confirmP);
+        chooseLanguages(inputData.get("language"));
+        selectSkill(inputData.get("skill"));
+        chooseCountry(inputData.get("country"));
+        selectYear(inputData.get("year"));
+        selectMonth(inputData.get("month"));
+        selectDay(inputData.get("day"));
+        uploadFile(inputData.get("file"));
+        fillPassword(inputData.get("password"));
+        fillConfirmPassword(inputData.get("confirmPassword"));
     }
+
 }
 
 

@@ -1,10 +1,9 @@
-package Help;
+package help;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class FrameMethods {
@@ -15,7 +14,7 @@ public class FrameMethods {
         this.driver = driver;
     }
 
-    public void switchToFrameById(String value){
+    public void switchToFrameById(WebElement value){
         waitFrame(value);
     }
 

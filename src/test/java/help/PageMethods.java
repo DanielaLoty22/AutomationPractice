@@ -1,4 +1,4 @@
-package Help;
+package help;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,6 +23,9 @@ public class PageMethods {
         WebDriverWait Wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         Wait.until(ExpectedConditions.urlToBe(value));
     }
+
+
+
 }
 
 
